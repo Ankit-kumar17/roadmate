@@ -289,12 +289,12 @@ const styles = StyleSheet.create({
   /* Footer */
 
   footer: {
-//     marginTop: 25,
+    marginTop: 25,
 
-//     textAlign: "center",
+    textAlign: "center",
 
-//     fontSize: 13,
+    fontSize: 13,
 
-//     color: "#9CA3AF",
-//   },
-// });
+    color: "#9CA3AF",
+  },
+});
