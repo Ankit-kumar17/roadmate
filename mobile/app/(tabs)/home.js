@@ -67,12 +67,12 @@ export default function Home() {
             />
 
             {/* Location */}
-            {/* <View style={styles.locationCard}>
+            <View style={styles.locationCard}>
               <View style={styles.locationIcon}>
                 <Text style={styles.locationEmoji}>
                   📍
                 </Text>
-              </View> */}
+              </View>
 
               <View style={styles.locationInfo}>
                 <Text style={styles.locationLabel}>
