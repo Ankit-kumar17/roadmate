@@ -4,9 +4,17 @@ import {
   StyleSheet,
 } from "react-native";
 
+import { router } from "expo-router";
+
 import Header from "../../components/Header";
+import TripCard from "../../components/TripCard";
 
 export default function Home() {
+
+  const handleTripPress = () => {
+    console.log("Trip clicked");
+  };
+
   return (
     <View style={styles.container}>
 
@@ -16,27 +24,45 @@ export default function Home() {
       />
 
       <Text style={styles.heading}>
-        Your Journey
+        Recent Trips
       </Text>
+
+      <TripCard
+        title="Delhi → Manali"
+        date="12 Aug - 18 Aug"
+        status="Completed"
+        onPress={handleTripPress}
+      />
+
+      <TripCard
+        title="Jaipur → Udaipur"
+        date="20 Aug - 23 Aug"
+        status="Upcoming"
+        onPress={handleTripPress}
+      />
 
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
 
-    backgroundColor: "#F4F7FB",
+//     backgroundColor: "#F4F7FB",
 
-    paddingHorizontal: 20,
-    paddingTop: 25,
-  },
+//     paddingHorizontal: 20,
 
-  heading: {
-    fontSize: 22,
-    fontWeight: "700",
+//     paddingTop: 25,
+//   },
 
-    color: "#111827",
-  },
-});
+//   heading: {
+//     fontSize: 22,
+
+//     fontWeight: "700",
+
+//     color: "#111827",
+
+//     marginBottom: 15,
+//   },
+// });

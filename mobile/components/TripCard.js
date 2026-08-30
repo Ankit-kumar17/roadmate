@@ -63,125 +63,125 @@ export default function TripCard({
   );
 }
 
-// const styles = StyleSheet.create({
-//   card: {
-//     backgroundColor: "#FFFFFF",
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: "#FFFFFF",
 
-//     borderRadius: 16,
+    borderRadius: 16,
 
-//     padding: 16,
+    padding: 16,
 
-//     marginBottom: 14,
+    marginBottom: 14,
 
-//     shadowOffset: {
-//       width: 0,
-//       height: 3,
-//     },
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
 
-//     shadowOpacity: 0.07,
+    shadowOpacity: 0.07,
 
-//     shadowRadius: 8,
+    shadowRadius: 8,
 
-//     elevation: 3,
-//   },
+    elevation: 3,
+  },
 
-//   pressed: {
-//     opacity: 0.8,
+  pressed: {
+    opacity: 0.8,
 
-//     transform: [
-//       {
-//         scale: 0.99,
-//       },
-//     ],
-//   },
+    transform: [
+      {
+        scale: 0.99,
+      },
+    ],
+  },
 
-//   topRow: {
-//     flexDirection: "row",
+  topRow: {
+    flexDirection: "row",
 
-//     justifyContent: "space-between",
+    justifyContent: "space-between",
 
-//     alignItems: "center",
-//   },
+    alignItems: "center",
+  },
 
-//   tripInfo: {
-//     flexDirection: "row",
+  tripInfo: {
+    flexDirection: "row",
 
-//     alignItems: "center",
+    alignItems: "center",
 
-//     flex: 1,
+    flex: 1,
 
-//     marginRight: 10,
-//   },
+    marginRight: 10,
+  },
 
-//   tripIcon: {
-//     fontSize: 24,
+  tripIcon: {
+    fontSize: 24,
 
-//     marginRight: 10,
-//   },
+    marginRight: 10,
+  },
 
-//   title: {
-//     flex: 1,
+  title: {
+    flex: 1,
 
-//     fontSize: 17,
+    fontSize: 17,
 
-//     fontWeight: "700",
+    fontWeight: "700",
 
-//     color: "#111827",
-//   },
+    color: "#111827",
+  },
 
-//   statusContainer: {
-//     paddingHorizontal: 10,
+  statusContainer: {
+    paddingHorizontal: 10,
 
-//     paddingVertical: 5,
+    paddingVertical: 5,
 
-//     borderRadius: 20,
+    borderRadius: 20,
 
-//     backgroundColor: "#DCFCE7",
-//   },
+    backgroundColor: "#DCFCE7",
+  },
 
-//   status: {
-//     fontSize: 12,
+  status: {
+    fontSize: 12,
 
-//     fontWeight: "600",
+    fontWeight: "600",
 
-//     color: "#15803D",
-//   },
+    color: "#15803D",
+  },
 
-//   date: {
-//     marginTop: 14,
+  date: {
+    marginTop: 14,
 
-//     fontSize: 14,
+    fontSize: 14,
 
-//     color: "#6B7280",
-//   },
+    color: "#6B7280",
+  },
 
-//   bottomRow: {
-//     flexDirection: "row",
+  bottomRow: {
+    flexDirection: "row",
 
-//     justifyContent: "space-between",
+    justifyContent: "space-between",
 
-//     alignItems: "center",
+    alignItems: "center",
 
-//     marginTop: 16,
+    marginTop: 16,
 
-//     paddingTop: 12,
+    paddingTop: 12,
 
-//     borderTopWidth: 1,
+    borderTopWidth: 1,
 
-//     borderTopColor: "#F3F4F6",
-//   },
+    borderTopColor: "#F3F4F6",
+  },
 
-//   viewText: {
-//     fontSize: 14,
+  viewText: {
+    fontSize: 14,
 
-//     fontWeight: "600",
+    fontWeight: "600",
 
-//     color: "#2563EB",
-//   },
+    color: "#2563EB",
+  },
 
-//   arrow: {
-//     fontSize: 20,
+  arrow: {
+    fontSize: 20,
 
-//     color: "#2563EB",
-//   },
-// });
+    color: "#2563EB",
+  },
+});
