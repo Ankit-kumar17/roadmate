@@ -11,26 +11,26 @@ import TripCard from "../../components/TripCard";
 export default function Home() {
 
   const trips = [
-    {
-      id: "1",
-      title: "Delhi → Manali",
-      date: "12 Aug - 18 Aug",
-      status: "Completed",
-    },
+    // {
+    //   id: "1",
+    //   title: "Delhi → Manali",
+    //   date: "12 Aug - 18 Aug",
+    //   status: "Completed",
+    // },
 
-    {
-      id: "2",
-      title: "Jaipur → Udaipur",
-      date: "20 Aug - 23 Aug",
-      status: "Upcoming",
-    },
+    // {
+    //   id: "2",
+    //   title: "Jaipur → Udaipur",
+    //   date: "20 Aug - 23 Aug",
+    //   status: "Upcoming",
+    // },
 
-    {
-      id: "3",
-      title: "Mumbai → Goa",
-      date: "25 Aug - 30 Aug",
-      status: "Upcoming",
-    },
+    // {
+    //   id: "3",
+    //   title: "Mumbai → Goa",
+    //   date: "25 Aug - 30 Aug",
+    //   status: "Upcoming",
+    // },
   ];
 
   const handleTripPress = (trip) => {
