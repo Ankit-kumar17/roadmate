@@ -28,43 +28,43 @@ export default function Header({
 }
 
  const styles = StyleSheet.create({
-//   container: {
-//     flexDirection: "row",
-//     justifyContent: "space-between",
-//     alignItems: "center",
+  container: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
 
-//     marginBottom: 25,
-//   },
+    marginBottom: 25,
+  },
 
-//   greeting: {
-//     fontSize: 24,
-//     fontWeight: "800",
-//     color: "#111827",
-//   },
+  greeting: {
+    fontSize: 24,
+    fontWeight: "800",
+    color: "#111827",
+  },
 
-//   subtitle: {
-//     marginTop: 5,
+  subtitle: {
+    marginTop: 5,
 
-//     fontSize: 14,
-//     color: "#6B7280",
-//   },
+    fontSize: 14,
+    color: "#6B7280",
+  },
 
-//   avatar: {
-//     width: 48,
-//     height: 48,
+  avatar: {
+    width: 48,
+    height: 48,
 
-//     borderRadius: 24,
+    borderRadius: 24,
 
-//     backgroundColor: "#2563EB",
+    backgroundColor: "#2563EB",
 
-//     justifyContent: "center",
-//     alignItems: "center",
-//   },
+    justifyContent: "center",
+    alignItems: "center",
+  },
 
-//   avatarText: {
-//     color: "#FFFFFF",
+  avatarText: {
+    color: "#FFFFFF",
 
-//     fontSize: 18,
-//     fontWeight: "700",
-//   },
-// });
+    fontSize: 18,
+    fontWeight: "700",
+  },
+});
