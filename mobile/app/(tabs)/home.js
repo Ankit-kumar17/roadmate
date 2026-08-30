@@ -45,24 +45,24 @@ export default function Home() {
   );
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
 
-//     backgroundColor: "#F4F7FB",
+    backgroundColor: "#F4F7FB",
 
-//     paddingHorizontal: 20,
+    paddingHorizontal: 20,
 
-//     paddingTop: 25,
-//   },
+    paddingTop: 25,
+  },
 
-//   heading: {
-//     fontSize: 22,
+  heading: {
+    fontSize: 22,
 
-//     fontWeight: "700",
+    fontWeight: "700",
 
-//     color: "#111827",
+    color: "#111827",
 
-//     marginBottom: 15,
-//   },
-// });
+    marginBottom: 15,
+  },
+});
