@@ -366,130 +366,130 @@ export default function Register() {
   );
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#F4F7FB",
-//   },
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F4F7FB",
+  },
 
-//   content: {
-//     flexGrow: 1,
-//     justifyContent: "center",
+  content: {
+    flexGrow: 1,
+    justifyContent: "center",
 
-//     paddingHorizontal: 22,
-//     paddingVertical: 30,
-//   },
+    paddingHorizontal: 22,
+    paddingVertical: 30,
+  },
 
-//   /* Header */
+  /* Header */
 
-//   header: {
-//     alignItems: "center",
-//     marginBottom: 25,
-//   },
+  header: {
+    alignItems: "center",
+    marginBottom: 25,
+  },
 
-//   logoCircle: {
-//     width: 64,
-//     height: 64,
+  logoCircle: {
+    width: 64,
+    height: 64,
 
-//     borderRadius: 32,
+    borderRadius: 32,
 
-//     backgroundColor: "#2563EB",
+    backgroundColor: "#2563EB",
 
-//     justifyContent: "center",
-//     alignItems: "center",
+    justifyContent: "center",
+    alignItems: "center",
 
-//     marginBottom: 16,
-//   },
+    marginBottom: 16,
+  },
 
-//   logoText: {
-//     color: "#FFFFFF",
+  logoText: {
+    color: "#FFFFFF",
 
-//     fontSize: 28,
-//     fontWeight: "800",
-//   },
+    fontSize: 28,
+    fontWeight: "800",
+  },
 
-//   title: {
-//     fontSize: 30,
+  title: {
+    fontSize: 30,
 
-//     fontWeight: "800",
+    fontWeight: "800",
 
-//     color: "#111827",
+    color: "#111827",
 
-//     textAlign: "center",
+    textAlign: "center",
 
-//     marginBottom: 8,
-//   },
+    marginBottom: 8,
+  },
 
-//   subtitle: {
-//     fontSize: 15,
+  subtitle: {
+    fontSize: 15,
 
-//     lineHeight: 22,
+    lineHeight: 22,
 
-//     color: "#6B7280",
+    color: "#6B7280",
 
-//     textAlign: "center",
+    textAlign: "center",
 
-//     paddingHorizontal: 20,
-//   },
+    paddingHorizontal: 20,
+  },
 
-//   /* Card */
+  /* Card */
 
-//   card: {
-//     backgroundColor: "#FFFFFF",
+  card: {
+    backgroundColor: "#FFFFFF",
 
-//     borderRadius: 20,
+    borderRadius: 20,
 
-//     padding: 22,
+    padding: 22,
 
-//     shadowOffset: {
-//       width: 0,
-//       height: 5,
-//     },
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
 
-//     shadowOpacity: 0.08,
+    shadowOpacity: 0.08,
 
-//     shadowRadius: 15,
+    shadowRadius: 15,
 
-//     elevation: 4,
-//   },
+    elevation: 4,
+  },
 
-//   /* Login */
+  /* Login */
 
-//   loginContainer: {
-//     flexDirection: "row",
+  loginContainer: {
+    flexDirection: "row",
 
-//     justifyContent: "center",
+    justifyContent: "center",
 
-//     alignItems: "center",
+    alignItems: "center",
 
-//     marginTop: 24,
-//   },
+    marginTop: 24,
+  },
 
-//   accountText: {
-//     fontSize: 14,
+  accountText: {
+    fontSize: 14,
 
-//     color: "#6B7280",
-//   },
+    color: "#6B7280",
+  },
 
-//   loginText: {
-//     marginLeft: 5,
+  loginText: {
+    marginLeft: 5,
 
-//     fontSize: 14,
+    fontSize: 14,
 
-//     fontWeight: "700",
+    fontWeight: "700",
 
-//     color: "#2563EB",
-//   },
+    color: "#2563EB",
+  },
 
-//   /* Footer */
+  /* Footer */
 
-//   footer: {
-//     marginTop: 24,
+  footer: {
+    marginTop: 24,
 
-//     textAlign: "center",
+    textAlign: "center",
 
-//     fontSize: 13,
+    fontSize: 13,
 
-//     color: "#9CA3AF",
-//   },
-// });
+    color: "#9CA3AF",
+  },
+});
