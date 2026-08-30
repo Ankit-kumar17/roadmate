@@ -2,43 +2,91 @@ import {
   View,
   Text,
   StyleSheet,
+  FlatList,
 } from "react-native";
-
-import { router } from "expo-router";
 
 import Header from "../../components/Header";
 import TripCard from "../../components/TripCard";
 
 export default function Home() {
 
-  const handleTripPress = () => {
-    console.log("Trip clicked");
+  const trips = [
+    {
+      id: "1",
+      title: "Delhi → Manali",
+      date: "12 Aug - 18 Aug",
+      status: "Completed",
+    },
+
+    {
+      id: "2",
+      title: "Jaipur → Udaipur",
+      date: "20 Aug - 23 Aug",
+      status: "Upcoming",
+    },
+
+    {
+      id: "3",
+      title: "Mumbai → Goa",
+      date: "25 Aug - 30 Aug",
+      status: "Upcoming",
+    },
+  ];
+
+  const handleTripPress = (trip) => {
+    console.log("Selected trip:", trip);
   };
 
   return (
     <View style={styles.container}>
 
-      <Header
-        name="Ankit"
-        subtitle="Ready for your next adventure?"
-      />
+      <FlatList
+        data={trips}
 
-      <Text style={styles.heading}>
-        Recent Trips
-      </Text>
+        keyExtractor={(item) => item.id}
 
-      <TripCard
-        title="Delhi → Manali"
-        date="12 Aug - 18 Aug"
-        status="Completed"
-        onPress={handleTripPress}
-      />
+        renderItem={({ item }) => (
+          <TripCard
+            title={item.title}
+            date={item.date}
+            status={item.status}
+            onPress={() => handleTripPress(item)}
+          />
+        )}
 
-      <TripCard
-        title="Jaipur → Udaipur"
-        date="20 Aug - 23 Aug"
-        status="Upcoming"
-        onPress={handleTripPress}
+        ListHeaderComponent={
+          <View>
+            <Header
+              name="Ankit"
+              subtitle="Ready for your next adventure?"
+            />
+
+            <Text style={styles.heading}>
+              Recent Trips
+            </Text>
+          </View>
+        }
+
+        ListEmptyComponent={
+          <View style={styles.emptyContainer}>
+            <Text style={styles.emptyIcon}>
+              🚗
+            </Text>
+
+            <Text style={styles.emptyTitle}>
+              No trips yet
+            </Text>
+
+            <Text style={styles.emptyText}>
+              Create your first trip and
+              start your journey.
+            </Text>
+          </View>
+        }
+
+        showsVerticalScrollIndicator={false}
+
+        contentContainerStyle={styles.listContent}
       />
 
     </View>
@@ -50,10 +98,16 @@ const styles = StyleSheet.create({
     flex: 1,
 
     backgroundColor: "#F4F7FB",
+  },
 
+  listContent: {
     paddingHorizontal: 20,
 
     paddingTop: 25,
+
+    paddingBottom: 30,
+
+    flexGrow: 1,
   },
 
   heading: {
@@ -64,5 +118,41 @@ const styles = StyleSheet.create({
     color: "#111827",
 
     marginBottom: 15,
+  },
+
+  emptyContainer: {
+    flex: 1,
+
+    justifyContent: "center",
+
+    alignItems: "center",
+
+    paddingHorizontal: 30,
+  },
+
+  emptyIcon: {
+    fontSize: 50,
+
+    marginBottom: 15,
+  },
+
+  emptyTitle: {
+    fontSize: 20,
+
+    fontWeight: "700",
+
+    color: "#111827",
+
+    marginBottom: 8,
+  },
+
+  emptyText: {
+    fontSize: 14,
+
+    color: "#6B7280",
+
+    textAlign: "center",
+
+    lineHeight: 21,
   },
 });
