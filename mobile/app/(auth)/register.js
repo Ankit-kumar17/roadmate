@@ -80,6 +80,8 @@ export default function Register() {
       setLoading(false);
 
       console.log("Registration successful");
+
+      router.replace("/login");
     }, 1500);
   };
 
