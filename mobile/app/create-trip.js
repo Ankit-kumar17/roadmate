@@ -94,57 +94,57 @@ export default function CreateTrip() {
   );
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
 
-//     backgroundColor: "#F4F7FB",
-//   },
+    backgroundColor: "#F4F7FB",
+  },
 
-//   content: {
-//     flexGrow: 1,
+  content: {
+    flexGrow: 1,
 
-//     paddingHorizontal: 20,
+    paddingHorizontal: 20,
 
-//     paddingVertical: 30,
-//   },
+    paddingVertical: 30,
+  },
 
-//   header: {
-//     marginBottom: 25,
-//   },
+  header: {
+    marginBottom: 25,
+  },
 
-//   title: {
-//     fontSize: 28,
+  title: {
+    fontSize: 28,
 
-//     fontWeight: "800",
+    fontWeight: "800",
 
-//     color: "#111827",
+    color: "#111827",
 
-//     marginBottom: 6,
-//   },
+    marginBottom: 6,
+  },
 
-//   subtitle: {
-//     fontSize: 15,
+  subtitle: {
+    fontSize: 15,
 
-//     color: "#6B7280",
-//   },
+    color: "#6B7280",
+  },
 
-//   card: {
-//     backgroundColor: "#FFFFFF",
+  card: {
+    backgroundColor: "#FFFFFF",
 
-//     borderRadius: 20,
+    borderRadius: 20,
 
-//     padding: 22,
+    padding: 22,
 
-//     shadowOffset: {
-//       width: 0,
-//       height: 5,
-//     },
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
 
-//     shadowOpacity: 0.08,
+    shadowOpacity: 0.08,
 
-//     shadowRadius: 15,
+    shadowRadius: 15,
 
-//     elevation: 4,
-//   },
-// });
+    elevation: 4,
+  },
+});
