@@ -9,7 +9,7 @@ import {
   Keyboard,
   Alert,
 } from "react-native";
-import { useTrips } from "../context/TripContext";
+import { useTrips } from "./context/tripcontext";
 
 import { useState } from "react";
 import { router } from "expo-router";

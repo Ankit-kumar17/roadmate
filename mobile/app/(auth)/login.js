@@ -144,7 +144,7 @@ export default function Login() {
           {/* Register */}
           <View style={styles.registerContainer}>
             <Text style={styles.accountText}>
-              Don't have an account?
+              Don&apos;t have an account?
             </Text>
 
             <Pressable
