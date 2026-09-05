@@ -1,23 +1,23 @@
-// import { View, Text } from "react-native";
-// import { useTrips } from "../../context/TripContext";
+import { View, Text } from "react-native";
+import { useTrips } from "../../context/TripContext";
 
-// export default function Trips() {
+export default function Trips() {
 
-//   const { trips } = useTrips();
+  const { trips } = useTrips();
 
-//   return (
-//     <View>
-//       <Text>My Trips</Text>
+  return (
+    <View>
+      <Text>My Trips</Text>
 
-//       {trips.map((trip) => (
-//         <View key={trip.id}>
-//           <Text>{trip.name}</Text>
+      {trips.map((trip) => (
+        <View key={trip.id}>
+          <Text>{trip.name}</Text>
 
-//           <Text>
-//             {trip.startingPoint} → {trip.destination}
-//           </Text>
-//         </View>
-//       ))}
-//     </View>
-//   );
-// }
+          <Text>
+            {trip.startingPoint} → {trip.destination}
+          </Text>
+        </View>
+      ))}
+    </View>
+  );
+}
