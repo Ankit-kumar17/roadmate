@@ -5,7 +5,7 @@ import {
   ScrollView,
 } from "react-native";
 
-import { useTrips } from "../../context/TripContext";
+import { useTrips } from "../context/tripcontext";
 
 export default function Trips() {
   const { trips } = useTrips();
