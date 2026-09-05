@@ -13,12 +13,7 @@ export function TripProvider({ children }) {
   };
 
   return (
-    <TripContext.Provider
-      value={{
-        trips,
-        addTrip,
-      }}
-    >
+    <TripContext.Provider value={{ trips, addTrip }}>
       {children}
     </TripContext.Provider>
   );
