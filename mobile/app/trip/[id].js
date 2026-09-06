@@ -14,6 +14,14 @@ import {
 
 import { useTrips } from "../context/tripcontext";
 
+// Safe date formatter to prevent Android crashes
+const formatDate = (dateString) => {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+};
+
 export default function TripDetails() {
 
   // URL se trip ID
@@ -23,13 +31,23 @@ export default function TripDetails() {
   const {
     trips,
     deleteTrip,
+    loading
   } = useTrips();
 
-  // ID ke basis par trip find
+  // ID ke basis par trip find (convert both to string to avoid type mismatch)
   const trip = trips.find(
-    (item) => item.id === id
+    (item) => String(item.id) === String(id)
   );
 
+
+  // Agar data load ho raha hai
+  if (loading) {
+    return (
+      <View style={[styles.notFoundContainer, { justifyContent: 'center', alignItems: 'center' }]}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
 
   // Agar trip nahi mili
   if (!trip) {
@@ -39,6 +57,13 @@ export default function TripDetails() {
 
         <Text style={styles.notFoundTitle}>
           Trip Not Found
+        </Text>
+
+        {/* Debug Info */}
+        <Text style={{ textAlign: 'center', marginBottom: 20, color: 'gray' }}>
+          Searching for ID: "{id}"{"\n"}
+          Total Trips in Context: {trips?.length}{"\n"}
+          Available IDs: {trips?.map(t => `"${t.id}"`).join(', ')}
         </Text>
 
         <Pressable
@@ -211,16 +236,7 @@ export default function TripDetails() {
             </Text>
 
             <Text style={styles.date}>
-              {new Date(
-                trip.startDate
-              ).toLocaleDateString(
-                "en-IN",
-                {
-                  day: "2-digit",
-                  month: "long",
-                  year: "numeric",
-                }
-              )}
+              {formatDate(trip.startDate)}
             </Text>
 
           </View>
@@ -246,16 +262,7 @@ export default function TripDetails() {
             </Text>
 
             <Text style={styles.date}>
-              {new Date(
-                trip.endDate
-              ).toLocaleDateString(
-                "en-IN",
-                {
-                  day: "2-digit",
-                  month: "long",
-                  year: "numeric",
-                }
-              )}
+              {formatDate(trip.endDate)}
             </Text>
 
           </View>
