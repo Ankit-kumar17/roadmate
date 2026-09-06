@@ -7,7 +7,7 @@ import {
 
 import { router } from "expo-router";
 
-import { useTrips } from "../../context/TripContext";
+import { useTrips } from "../context/tripcontext";
 
 import TripCard from "../../components/TripCard";
 
