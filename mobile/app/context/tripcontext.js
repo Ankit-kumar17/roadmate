@@ -7,43 +7,68 @@ import {
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+
 const TripContext = createContext();
 
 const TRIPS_KEY = "roadmate_trips";
 
+
 export function TripProvider({ children }) {
+
   const [trips, setTrips] = useState([]);
+
   const [loading, setLoading] = useState(true);
 
-  // --------------------------------
-  // Load trips when app starts
-  // --------------------------------
+
+  // -----------------------------
+  // Load trips
+  // -----------------------------
 
   useEffect(() => {
     loadTrips();
   }, []);
 
+
   const loadTrips = async () => {
+
     try {
+
       const storedTrips =
-        await AsyncStorage.getItem(TRIPS_KEY);
+        await AsyncStorage.getItem(
+          TRIPS_KEY
+        );
 
       if (storedTrips) {
-        setTrips(JSON.parse(storedTrips));
+
+        setTrips(
+          JSON.parse(storedTrips)
+        );
+
       }
+
     } catch (error) {
-      console.log("Error loading trips:", error);
+
+      console.log(
+        "Error loading trips:",
+        error
+      );
+
     } finally {
+
       setLoading(false);
+
     }
   };
 
-  // --------------------------------
-  // Add new trip
-  // --------------------------------
+
+  // -----------------------------
+  // Add Trip
+  // -----------------------------
 
   const addTrip = async (trip) => {
+
     try {
+
       const updatedTrips = [
         ...trips,
         trip,
@@ -56,21 +81,30 @@ export function TripProvider({ children }) {
         JSON.stringify(updatedTrips)
       );
 
-      console.log("Trip saved successfully");
     } catch (error) {
-      console.log("Error saving trip:", error);
+
+      console.log(
+        "Error saving trip:",
+        error
+      );
+
     }
   };
 
-  // --------------------------------
-  // Delete trip
-  // --------------------------------
+
+  // -----------------------------
+  // Delete Trip
+  // -----------------------------
 
   const deleteTrip = async (tripId) => {
+
     try {
-      const updatedTrips = trips.filter(
-        (trip) => trip.id !== tripId
-      );
+
+      const updatedTrips =
+        trips.filter(
+          (trip) =>
+            trip.id !== tripId
+        );
 
       setTrips(updatedTrips);
 
@@ -78,10 +112,17 @@ export function TripProvider({ children }) {
         TRIPS_KEY,
         JSON.stringify(updatedTrips)
       );
+
     } catch (error) {
-      console.log("Error deleting trip:", error);
+
+      console.log(
+        "Error deleting trip:",
+        error
+      );
+
     }
   };
+
 
   return (
     <TripContext.Provider
@@ -97,6 +138,11 @@ export function TripProvider({ children }) {
   );
 }
 
+
 export function useTrips() {
-  return useContext(TripContext);
+
+  return useContext(
+    TripContext
+  );
+
 }
