@@ -5,12 +5,13 @@ import {
   ScrollView,
 } from "react-native";
 
-import { useTrips } from "../context/tripcontext";
+import { router } from "expo-router";
+
+import { useTrips } from "../../context/TripContext";
 
 import TripCard from "../../components/TripCard";
 
 export default function Trips() {
-
   const { trips } = useTrips();
 
   return (
@@ -31,14 +32,16 @@ export default function Trips() {
       </View>
 
 
+      {/* Trips */}
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.content}
       >
 
-        {/* No Trips */}
-
         {trips.length === 0 ? (
+
+          // No trips
 
           <View style={styles.emptyContainer}>
 
@@ -58,7 +61,7 @@ export default function Trips() {
 
         ) : (
 
-          // Trips
+          // Trips list
 
           trips.map((trip) => (
 
@@ -66,10 +69,7 @@ export default function Trips() {
               key={trip.id}
               trip={trip}
               onPress={() => {
-                console.log(
-                  "Selected Trip:",
-                  trip
-                );
+                router.push(`/trip/${trip.id}`);
               }}
             />
 
