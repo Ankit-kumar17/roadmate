@@ -424,6 +424,6 @@ const styles = StyleSheet.create({
   backButtonText: {
     color: "#FFFFFF",
     fontWeight: "600",
-  },
+  }
 
 });
