@@ -7,25 +7,33 @@ import {
   Alert,
 } from "react-native";
 
-import { router, useLocalSearchParams } from "expo-router";
+import {
+  router,
+  useLocalSearchParams,
+} from "expo-router";
 
 import { useTrips } from "../../context/TripContext";
 
 export default function TripDetails() {
 
-  // URL se id milegi
+  // URL se trip ID
   const { id } = useLocalSearchParams();
 
   // Context se trips
-  const { trips, deleteTrip } = useTrips();
+  const {
+    trips,
+    deleteTrip,
+  } = useTrips();
 
-  // URL wali id ke according trip find karo
+  // ID ke basis par trip find
   const trip = trips.find(
     (item) => item.id === id
   );
 
+
   // Agar trip nahi mili
   if (!trip) {
+
     return (
       <View style={styles.notFoundContainer}>
 
@@ -46,12 +54,14 @@ export default function TripDetails() {
     );
   }
 
-  // Delete trip
+
+  // Delete Trip
   const handleDelete = () => {
 
     Alert.alert(
       "Delete Trip",
       "Are you sure you want to delete this trip?",
+
       [
         {
           text: "Cancel",
@@ -73,13 +83,14 @@ export default function TripDetails() {
     );
   };
 
+
   return (
     <ScrollView
       style={styles.container}
       contentContainerStyle={styles.content}
     >
 
-      {/* Back */}
+      {/* Back Button */}
 
       <Pressable
         style={styles.back}
@@ -118,6 +129,9 @@ export default function TripDetails() {
           Route
         </Text>
 
+
+        {/* Starting Point */}
+
         <View style={styles.routeRow}>
 
           <View style={styles.locationCircle}>
@@ -141,8 +155,12 @@ export default function TripDetails() {
         </View>
 
 
+        {/* Line */}
+
         <View style={styles.routeLine} />
 
+
+        {/* Destination */}
 
         <View style={styles.routeRow}>
 
@@ -177,6 +195,9 @@ export default function TripDetails() {
           Trip Dates
         </Text>
 
+
+        {/* Start Date */}
+
         <View style={styles.dateRow}>
 
           <Text style={styles.dateIcon}>
@@ -192,11 +213,14 @@ export default function TripDetails() {
             <Text style={styles.date}>
               {new Date(
                 trip.startDate
-              ).toLocaleDateString("en-IN", {
-                day: "2-digit",
-                month: "long",
-                year: "numeric",
-              })}
+              ).toLocaleDateString(
+                "en-IN",
+                {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                }
+              )}
             </Text>
 
           </View>
@@ -206,6 +230,8 @@ export default function TripDetails() {
 
         <View style={styles.dateDivider} />
 
+
+        {/* End Date */}
 
         <View style={styles.dateRow}>
 
@@ -222,11 +248,14 @@ export default function TripDetails() {
             <Text style={styles.date}>
               {new Date(
                 trip.endDate
-              ).toLocaleDateString("en-IN", {
-                day: "2-digit",
-                month: "long",
-                year: "numeric",
-              })}
+              ).toLocaleDateString(
+                "en-IN",
+                {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                }
+              )}
             </Text>
 
           </View>
@@ -236,7 +265,7 @@ export default function TripDetails() {
       </View>
 
 
-      {/* Delete */}
+      {/* Delete Button */}
 
       <Pressable
         style={styles.deleteButton}
