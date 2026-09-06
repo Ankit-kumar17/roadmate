@@ -305,6 +305,21 @@ Edit Trip
 
 const styles = StyleSheet.create({
 
+editButton: {
+  height: 52,
+  borderRadius: 12,
+  backgroundColor: "#2563EB",
+  justifyContent: "center",
+  alignItems: "center",
+  marginBottom: 12,
+},
+
+editText: {
+  color: "#FFFFFF",
+  fontSize: 16,
+  fontWeight: "700",
+},
+
   container: {
     flex: 1,
     backgroundColor: "#F5F7FB",
