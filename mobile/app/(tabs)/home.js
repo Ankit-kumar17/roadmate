@@ -12,29 +12,13 @@ import Header from "../../components/Header";
 import TripCard from "../../components/TripCard";
 import AppButton from "../../components/AppButton";
 
+import { useTrips } from "../context/tripcontext";
+
 export default function Home() {
-  const trips = [
-    {
-      id: "1",
-      title: "Delhi → Manali",
-      date: "12 Aug - 18 Aug",
-      status: "Completed",
-    },
+  const { trips } = useTrips();
 
-    {
-      id: "2",
-      title: "Jaipur → Udaipur",
-      date: "20 Aug - 23 Aug",
-      status: "Upcoming",
-    },
-
-    {
-      id: "3",
-      title: "Mumbai → Goa",
-      date: "25 Aug - 30 Aug",
-      status: "Upcoming",
-    },
-  ];
+  // You can limit the trips to only recent ones (e.g. 3)
+  const recentTrips = trips.slice(0, 3);
 
   const handleTripPress = (trip) => {
     console.log("Selected trip:", trip);
@@ -47,7 +31,7 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <FlatList
-        data={trips}
+        data={recentTrips}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.listContent}
@@ -110,9 +94,7 @@ export default function Home() {
 
         renderItem={({ item }) => (
           <TripCard
-            title={item.title}
-            date={item.date}
-            status={item.status}
+            trip={item}
             onPress={() => handleTripPress(item)}
           />
         )}
