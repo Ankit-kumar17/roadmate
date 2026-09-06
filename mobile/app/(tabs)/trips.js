@@ -5,12 +5,9 @@ import {
   ScrollView,
 } from "react-native";
 
-import { useTrips } from "../../context/TripContext";
+import { useTrips } from "../context/tripcontext";
 
 import TripCard from "../../components/TripCard";
-
-import { router } from "expo-router";
-
 
 export default function Trips() {
 
