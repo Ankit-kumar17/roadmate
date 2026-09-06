@@ -6,182 +6,184 @@ import {
 } from "react-native";
 
 export default function TripCard({
-  title,
-  date,
-  status,
+  trip,
   onPress,
 }) {
   return (
     <Pressable
-      style={({ pressed }) => [
-        styles.card,
-        pressed && styles.pressed,
-      ]}
+      style={styles.card}
       onPress={onPress}
     >
-      {/* Top Section */}
+
+      {/* Top Row */}
+
       <View style={styles.topRow}>
 
-        <View style={styles.tripInfo}>
-          <Text style={styles.tripIcon}>
+        <View style={styles.routeContainer}>
+
+          <Text style={styles.car}>
             🚗
           </Text>
 
-          <Text
-            style={styles.title}
-            numberOfLines={1}
-          >
-            {title}
+          <Text style={styles.route}>
+            {trip.startingPoint} → {trip.destination}
           </Text>
+
         </View>
 
-        <View style={styles.statusContainer}>
-          <Text style={styles.status}>
-            {status}
+        {/* Status */}
+
+        <View style={styles.status}>
+          <Text style={styles.statusText}>
+            Upcoming
           </Text>
         </View>
 
       </View>
 
-      {/* Date */}
-      <Text style={styles.date}>
-        📅 {date}
+
+      {/* Trip Name */}
+
+      <Text style={styles.tripName}>
+        {trip.name}
       </Text>
 
-      {/* Bottom */}
-      <View style={styles.bottomRow}>
-        <Text style={styles.viewText}>
-          View Trip
+
+      {/* Dates */}
+
+      <View style={styles.dateContainer}>
+
+        <Text style={styles.dateIcon}>
+          📅
         </Text>
 
-        <Text style={styles.arrow}>
-          →
+        <Text style={styles.date}>
+          {new Date(trip.startDate).toLocaleDateString(
+            "en-IN",
+            {
+              day: "2-digit",
+              month: "short",
+            }
+          )}
+
+          {" - "}
+
+          {new Date(trip.endDate).toLocaleDateString(
+            "en-IN",
+            {
+              day: "2-digit",
+              month: "short",
+            }
+          )}
         </Text>
+
       </View>
+
+
+      {/* Divider */}
+
+      <View style={styles.divider} />
+
+
+      {/* View Trip */}
+
+      <Text style={styles.viewTrip}>
+        View Trip →
+      </Text>
 
     </Pressable>
   );
 }
 
+
 const styles = StyleSheet.create({
+
   card: {
     backgroundColor: "#FFFFFF",
+    borderRadius: 18,
+    padding: 18,
+    marginBottom: 16,
 
-    borderRadius: 16,
-
-    padding: 16,
-
-    marginBottom: 14,
-
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 4,
     },
-
-    shadowOpacity: 0.07,
-
-    shadowRadius: 8,
+    shadowOpacity: 0.08,
+    shadowRadius: 10,
 
     elevation: 3,
   },
 
-  pressed: {
-    opacity: 0.8,
-
-    transform: [
-      {
-        scale: 0.99,
-      },
-    ],
-  },
-
   topRow: {
     flexDirection: "row",
-
     justifyContent: "space-between",
-
     alignItems: "center",
   },
 
-  tripInfo: {
+  routeContainer: {
     flexDirection: "row",
-
     alignItems: "center",
-
     flex: 1,
+  },
 
+  car: {
+    fontSize: 22,
     marginRight: 10,
   },
 
-  tripIcon: {
-    fontSize: 24,
-
-    marginRight: 10,
-  },
-
-  title: {
-    flex: 1,
-
-    fontSize: 17,
-
+  route: {
+    fontSize: 18,
     fontWeight: "700",
-
     color: "#111827",
-  },
-
-  statusContainer: {
-    paddingHorizontal: 10,
-
-    paddingVertical: 5,
-
-    borderRadius: 20,
-
-    backgroundColor: "#DCFCE7",
+    flexShrink: 1,
   },
 
   status: {
-    fontSize: 12,
+    backgroundColor: "#DCFCE7",
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 20,
+  },
 
-    fontWeight: "600",
-
+  statusText: {
     color: "#15803D",
+    fontSize: 12,
+    fontWeight: "600",
+  },
+
+  tripName: {
+    fontSize: 14,
+    color: "#6B7280",
+    marginTop: 14,
+  },
+
+  dateContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 10,
+  },
+
+  dateIcon: {
+    fontSize: 15,
+    marginRight: 7,
   },
 
   date: {
-    marginTop: 14,
-
     fontSize: 14,
-
     color: "#6B7280",
   },
 
-  bottomRow: {
-    flexDirection: "row",
-
-    justifyContent: "space-between",
-
-    alignItems: "center",
-
-    marginTop: 16,
-
-    paddingTop: 12,
-
-    borderTopWidth: 1,
-
-    borderTopColor: "#F3F4F6",
+  divider: {
+    height: 1,
+    backgroundColor: "#E5E7EB",
+    marginVertical: 15,
   },
 
-  viewText: {
+  viewTrip: {
     fontSize: 14,
-
     fontWeight: "600",
-
     color: "#2563EB",
   },
 
-  arrow: {
-    fontSize: 20,
-
-    color: "#2563EB",
-  },
 });
