@@ -123,12 +123,29 @@ export function TripProvider({ children }) {
     }
   };
 
+  const updatedTrip = async (updatedTrip) => {
+    try{
+      const updatedTrips = trips.map((trip) =>
+      trip.id === updatedTrip.id
+      ? updatedTrip
+      : trip
+      );
+      setTrips(updatedTrips);
+
+      await AsyncStorage.setItem(TRIPS_KEY,JSON.stringify(updatedTrips));
+    }
+    catch (error) {
+      console.log("Error updating trip:" , error);
+    }
+  };
+
 
   return (
     <TripContext.Provider
       value={{
         trips,
         addTrip,
+        updatedTrip,
         deleteTrip,
         loading,
       }}
