@@ -265,6 +265,28 @@ export default function TripDetails() {
       </View>
 
 
+
+
+{/* edit button */}
+
+
+<Pressable
+style={styles.editButton}
+onPress={() =>
+  router.push(
+    `/trip/edit/${trip.id}`
+  )
+}
+>
+
+  <Text style={styles.editText}>
+Edit Trip
+  </Text>
+
+</Pressable>
+
+
+
       {/* Delete Button */}
 
       <Pressable
