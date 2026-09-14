@@ -13,7 +13,7 @@ import {
   useLocalSearchParams,
 } from "expo-router";
 
-import { useTrips } from "../../../context/TripContext";
+import { useTrips } from "../../context/tripcontext";
 
 import AppInput from "../../../components/AppInput";
 

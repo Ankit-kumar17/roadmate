@@ -61,7 +61,7 @@ export default function TripDetails() {
 
         {/* Debug Info */}
         <Text style={{ textAlign: 'center', marginBottom: 20, color: 'gray' }}>
-          Searching for ID: "{id}"{"\n"}
+          Searching for ID: &quot;{id}&quot;{"\n"}
           Total Trips in Context: {trips?.length}{"\n"}
           Available IDs: {trips?.map(t => `"${t.id}"`).join(', ')}
         </Text>

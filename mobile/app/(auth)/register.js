@@ -11,7 +11,7 @@ import {
   Keyboard,
 } from "react-native";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { router } from "expo-router";
 
 import AppInput from "../../components/AppInput";
@@ -24,6 +24,13 @@ import {
 } from "../../utils/validation";
 
 export default function Register() {
+  const isMounted = useRef(true);
+  useEffect(() => {
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -77,6 +84,7 @@ export default function Register() {
 
     // Temporary API simulation
     setTimeout(() => {
+      if (!isMounted.current) return;
       setLoading(false);
 
       console.log("Registration successful");

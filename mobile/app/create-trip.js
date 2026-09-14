@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { useTrips } from "./context/tripcontext";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { router } from "expo-router";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -20,6 +20,13 @@ import AppInput from "../components/AppInput";
 import AppButton from "../components/AppButton";
 
 export default function CreateTrip() {
+  const isMounted = useRef(true);
+  useEffect(() => {
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   // -----------------------------
   // Trip form states
   // -----------------------------
@@ -181,6 +188,7 @@ addTrip(trip);
     setLoading(true);
 
     setTimeout(() => {
+      if (!isMounted.current) return;
       setLoading(false);
 
       Alert.alert(

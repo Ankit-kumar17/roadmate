@@ -20,45 +20,30 @@ export function TripProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
 
-  // -----------------------------
-  // Load trips
-  // -----------------------------
-
   useEffect(() => {
-    loadTrips();
-  }, []);
+    let isMounted = true;
 
-
-  const loadTrips = async () => {
-
-    try {
-
-      const storedTrips =
-        await AsyncStorage.getItem(
-          TRIPS_KEY
-        );
-
-      if (storedTrips) {
-
-        setTrips(
-          JSON.parse(storedTrips)
-        );
-
+    const loadTrips = async () => {
+      try {
+        const storedTrips = await AsyncStorage.getItem(TRIPS_KEY);
+        if (storedTrips && isMounted) {
+          setTrips(JSON.parse(storedTrips));
+        }
+      } catch (error) {
+        console.log("Error loading trips:", error);
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
       }
+    };
 
-    } catch (error) {
+    loadTrips();
 
-      console.log(
-        "Error loading trips:",
-        error
-      );
-
-    } finally {
-
-      setLoading(false);
-
-    }
-  };
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
 
   // -----------------------------
@@ -162,4 +147,8 @@ export function useTrips() {
     TripContext
   );
 
+}
+
+export default function TripContextDummy() {
+  return null;
 }

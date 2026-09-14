@@ -11,7 +11,7 @@ import {
   Keyboard,
 } from "react-native";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { router } from "expo-router";
 
@@ -24,6 +24,13 @@ import {
 } from "../../utils/validation";
 
 export default function Login() {
+  const isMounted = useRef(true);
+  useEffect(() => {
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -48,6 +55,7 @@ export default function Login() {
     setLoading(true);
 
     setTimeout(() => {
+      if (!isMounted.current) return;
       setLoading(false);
 
       console.log("Login successful");
