@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
+const jwt = require("jsonwebtoken");
 
 const router = express.Router();
 
@@ -43,7 +44,7 @@ router.post("/login", async(req,res) =>{
         const{email,password} = req.body;
 
         const user = await User.findOne({email});
-
+console.log("user:",user);
         if(!user){
             return res.status(400).json({
                 message:"invalid email or password ",
@@ -54,15 +55,24 @@ router.post("/login", async(req,res) =>{
             password,
             user.password
         );
+        console.log("pass:",isPasswordCorrect);
+
+  
 
         if(!isPasswordCorrect){
             return res.status(400).json({
                 message:"Invalid email or passwword",
             })
         };
+        const token =jwt.sign(
+            {userId:user._id},
+            process.env.JWT_SECRET,
+            {expiresIn:"7d"}
+        );
 
         res.status(200).json({
             message:"login successful",
+            token,
             user:{
                 id:user._id,
                 name:user.name,
