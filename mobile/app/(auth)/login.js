@@ -1,5 +1,3 @@
-
-
 import {
   View,
   Text,
@@ -23,8 +21,11 @@ import {
   validatePassword,
 } from "../../utils/validation";
 
+import { saveToken } from "../../utils/authStorage";
+
 export default function Login() {
   const isMounted = useRef(true);
+
   useEffect(() => {
     return () => {
       isMounted.current = false;
@@ -39,29 +40,52 @@ export default function Login() {
 
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     Keyboard.dismiss();
 
+    // Validate Email
     const emailValidation = validateEmail(email);
+
+    // Validate Password
     const passwordValidation = validatePassword(password);
 
     setEmailError(emailValidation);
     setPasswordError(passwordValidation);
 
+    // Stop if validation fails
     if (emailValidation || passwordValidation) {
       return;
     }
 
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    setTimeout(() => {
+      /*
+        TEMPORARY TOKEN
+
+        Abhi backend connect nahi kiya hai.
+        Backend connect hone ke baad ye token
+        backend response se milega.
+      */
+      const token = "test_jwt_token_123";
+
+      // Save JWT token in AsyncStorage
+      await saveToken(token);
+
       if (!isMounted.current) return;
-      setLoading(false);
 
       console.log("Login successful");
+      console.log("JWT Token saved:", token);
 
+      // Go to Home
       router.replace("/(tabs)/home");
-    }, 1500);
+    } catch (error) {
+      console.log("Login error:", error);
+    } finally {
+      if (isMounted.current) {
+        setLoading(false);
+      }
+    }
   };
 
   const handleEmailChange = (text) => {
@@ -112,7 +136,7 @@ export default function Login() {
 
         {/* Login Card */}
         <View style={styles.card}>
-
+          {/* Email */}
           <AppInput
             label="Email"
             placeholder="Enter your email"
@@ -122,6 +146,7 @@ export default function Login() {
             keyboardType="email-address"
           />
 
+          {/* Password */}
           <AppInput
             label="Password"
             placeholder="Enter your password"
@@ -152,7 +177,7 @@ export default function Login() {
           {/* Register */}
           <View style={styles.registerContainer}>
             <Text style={styles.accountText}>
-              Don&apos;t have an account?
+              Don't have an account?
             </Text>
 
             <Pressable
@@ -164,14 +189,12 @@ export default function Login() {
               </Text>
             </Pressable>
           </View>
-
         </View>
 
         {/* Footer */}
         <Text style={styles.footer}>
           Your journey starts with RoadMate 🚗
         </Text>
-
       </ScrollView>
     </KeyboardAvoidingView>
   );

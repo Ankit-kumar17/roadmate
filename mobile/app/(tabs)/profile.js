@@ -6,21 +6,44 @@ import {
   Pressable,
   Alert,
 } from "react-native";
+
 import { router } from "expo-router";
-import { useTrips } from "../context/tripcontext";
+
+import { useTrips } from "../../context/TripContext";
+import { removeToken } from "../../utils/authStorage";
 
 export default function Profile() {
   const { trips } = useTrips();
 
   const handleLogout = () => {
-    Alert.alert("Logout", "Are you sure you want to log out?", [
-      { text: "Cancel", style: "cancel" },
-      {
-        text: "Logout",
-        style: "destructive",
-        onPress: () => router.replace("/(auth)/login"),
-      },
-    ]);
+    Alert.alert(
+      "Logout",
+      "Are you sure you want to log out?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Logout",
+          style: "destructive",
+
+          onPress: async () => {
+            try {
+              // Remove JWT token from AsyncStorage
+              await removeToken();
+
+              console.log("JWT token removed");
+
+              // Go back to Login screen
+              router.replace("/(auth)/login");
+            } catch (error) {
+              console.log("Logout error:", error);
+            }
+          },
+        },
+      ]
+    );
   };
 
   return (
@@ -39,74 +62,153 @@ export default function Profile() {
           <View style={styles.avatar}>
             <Text style={styles.avatarText}>👤</Text>
           </View>
+
           <View style={styles.userInfo}>
             <Text style={styles.userName}>Traveler</Text>
-            <Text style={styles.userEmail}>traveler@roadmate.app</Text>
+            <Text style={styles.userEmail}>
+              traveler@roadmate.app
+            </Text>
           </View>
         </View>
 
         {/* Stats Row */}
         <View style={styles.statsCard}>
           <View style={styles.statItem}>
-            <Text style={styles.statNumber}>{trips?.length || 0}</Text>
-            <Text style={styles.statLabel}>Trips</Text>
+            <Text style={styles.statNumber}>
+              {trips?.length || 0}
+            </Text>
+
+            <Text style={styles.statLabel}>
+              Trips
+            </Text>
           </View>
+
           <View style={styles.statDivider} />
+
           <View style={styles.statItem}>
-            <Text style={styles.statNumber}>12</Text>
-            <Text style={styles.statLabel}>Places Visited</Text>
+            <Text style={styles.statNumber}>
+              12
+            </Text>
+
+            <Text style={styles.statLabel}>
+              Places Visited
+            </Text>
           </View>
+
           <View style={styles.statDivider} />
+
           <View style={styles.statItem}>
-            <Text style={styles.statNumber}>1,840</Text>
-            <Text style={styles.statLabel}>Total km</Text>
+            <Text style={styles.statNumber}>
+              1,840
+            </Text>
+
+            <Text style={styles.statLabel}>
+              Total km
+            </Text>
           </View>
         </View>
 
         {/* Quick Menu */}
-        <Text style={styles.sectionHeader}>Preferences & Safety</Text>
+        <Text style={styles.sectionHeader}>
+          Preferences & Safety
+        </Text>
 
         <View style={styles.menuContainer}>
+          {/* Saved Trips */}
           <Pressable
             style={styles.menuRow}
-            onPress={() => router.push("/(tabs)/trips")}
+            onPress={() =>
+              router.push("/(tabs)/trips")
+            }
           >
-            <Text style={styles.menuIcon}>🗺️</Text>
-            <Text style={styles.menuText}>My Saved Trips</Text>
-            <Text style={styles.chevron}>›</Text>
+            <Text style={styles.menuIcon}>
+              🗺️
+            </Text>
+
+            <Text style={styles.menuText}>
+              My Saved Trips
+            </Text>
+
+            <Text style={styles.chevron}>
+              ›
+            </Text>
           </Pressable>
 
+          {/* Create Trip */}
           <Pressable
             style={styles.menuRow}
-            onPress={() => router.push("/create-trip")}
+            onPress={() =>
+              router.push("/create-trip")
+            }
           >
-            <Text style={styles.menuIcon}>➕</Text>
-            <Text style={styles.menuText}>Create New Trip</Text>
-            <Text style={styles.chevron}>›</Text>
+            <Text style={styles.menuIcon}>
+              ➕
+            </Text>
+
+            <Text style={styles.menuText}>
+              Create New Trip
+            </Text>
+
+            <Text style={styles.chevron}>
+              ›
+            </Text>
           </Pressable>
 
+          {/* Emergency */}
           <Pressable
             style={styles.menuRow}
-            onPress={() => Alert.alert("Emergency Info", "RoadMate Emergency assistance helpline: 112")}
+            onPress={() =>
+              Alert.alert(
+                "Emergency Info",
+                "RoadMate Emergency assistance helpline: 112"
+              )
+            }
           >
-            <Text style={styles.menuIcon}>🚨</Text>
-            <Text style={styles.menuText}>Emergency Contacts</Text>
-            <Text style={styles.chevron}>›</Text>
+            <Text style={styles.menuIcon}>
+              🚨
+            </Text>
+
+            <Text style={styles.menuText}>
+              Emergency Contacts
+            </Text>
+
+            <Text style={styles.chevron}>
+              ›
+            </Text>
           </Pressable>
 
+          {/* Notifications */}
           <Pressable
             style={styles.menuRow}
-            onPress={() => Alert.alert("Notifications", "Push notifications are enabled.")}
+            onPress={() =>
+              Alert.alert(
+                "Notifications",
+                "Push notifications are enabled."
+              )
+            }
           >
-            <Text style={styles.menuIcon}>🔔</Text>
-            <Text style={styles.menuText}>Notifications</Text>
-            <Text style={styles.chevron}>›</Text>
+            <Text style={styles.menuIcon}>
+              🔔
+            </Text>
+
+            <Text style={styles.menuText}>
+              Notifications
+            </Text>
+
+            <Text style={styles.chevron}>
+              ›
+            </Text>
           </Pressable>
         </View>
 
         {/* Logout Button */}
-        <Pressable style={styles.logoutButton} onPress={handleLogout}>
-          <Text style={styles.logoutText}>Log Out</Text>
+        <Pressable
+          style={styles.logoutButton}
+          onPress={handleLogout}
+        >
+          <Text style={styles.logoutText}>
+            Log Out
+          </Text>
         </Pressable>
       </ScrollView>
     </View>
@@ -118,6 +220,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F9FAFB",
   },
+
   header: {
     paddingTop: 60,
     paddingHorizontal: 20,
@@ -126,15 +229,20 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#F3F4F6",
   },
+
   title: {
     fontSize: 26,
     fontWeight: "700",
     color: "#111827",
   },
+
   content: {
     padding: 20,
     paddingBottom: 40,
   },
+
+  /* User Card */
+
   userCard: {
     flexDirection: "row",
     alignItems: "center",
@@ -145,6 +253,7 @@ const styles = StyleSheet.create({
     borderColor: "#E5E7EB",
     marginBottom: 16,
   },
+
   avatar: {
     width: 54,
     height: 54,
@@ -154,22 +263,29 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginRight: 16,
   },
+
   avatarText: {
     fontSize: 26,
   },
+
   userInfo: {
     flex: 1,
   },
+
   userName: {
     fontSize: 18,
     fontWeight: "700",
     color: "#111827",
   },
+
   userEmail: {
     fontSize: 13,
     color: "#6B7280",
     marginTop: 2,
   },
+
+  /* Stats */
+
   statsCard: {
     flexDirection: "row",
     backgroundColor: "#FFFFFF",
@@ -181,31 +297,41 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
   },
+
   statItem: {
     alignItems: "center",
     flex: 1,
   },
+
   statNumber: {
     fontSize: 18,
     fontWeight: "700",
     color: "#4F46E5",
   },
+
   statLabel: {
     fontSize: 12,
     color: "#6B7280",
     marginTop: 4,
   },
+
   statDivider: {
     width: 1,
     height: 32,
     backgroundColor: "#E5E7EB",
   },
+
+  /* Section */
+
   sectionHeader: {
     fontSize: 16,
     fontWeight: "700",
     color: "#1F2937",
     marginBottom: 12,
   },
+
+  /* Menu */
+
   menuContainer: {
     backgroundColor: "#FFFFFF",
     borderRadius: 16,
@@ -214,6 +340,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     overflow: "hidden",
   },
+
   menuRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -222,26 +349,33 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#F3F4F6",
   },
+
   menuIcon: {
     fontSize: 18,
     marginRight: 12,
   },
+
   menuText: {
     flex: 1,
     fontSize: 15,
     fontWeight: "500",
     color: "#1F2937",
   },
+
   chevron: {
     fontSize: 20,
     color: "#9CA3AF",
   },
+
+  /* Logout */
+
   logoutButton: {
     backgroundColor: "#FEE2E2",
     borderRadius: 12,
     paddingVertical: 14,
     alignItems: "center",
   },
+
   logoutText: {
     color: "#DC2626",
     fontSize: 15,
