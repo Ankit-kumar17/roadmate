@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+const authMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
@@ -86,5 +87,12 @@ console.log("user:",user);
         })
         
     }
+});
+
+router.get("/profile", authMiddleware, (req,res) => {
+res.status(200).json({
+    message:"Profile accessed successfully",
+    user: req.user,
+});
 })
 module.exports = router;

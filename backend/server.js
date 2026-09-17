@@ -4,10 +4,14 @@ const dns = require("dns");
 
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
+require("dotenv").config();
+console.log("JWT SECRET EXISTS:", !!process.env.JWT_SECRET);
+
+
 const express = require("express");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
-require("dotenv").config();
+
 
 const app = express();
 app.use(express.json());
