@@ -13,17 +13,15 @@ import Header from "../../components/Header";
 import TripCard from "../../components/TripCard";
 import AppButton from "../../components/AppButton";
 
-import { useTrips } from "../context/tripcontext";
 import { getToken } from "../../utils/authStorage";
 
 export default function Home() {
-  const { trips } = useTrips();
-
   const [user, setUser] = useState(null);
+  const [trips, setTrips] = useState([]);
 
-  // Fetch currently logged-in user's profile
+  // Fetch currently logged-in user's profile + trips
   useEffect(() => {
-    const fetchProfile = async () => {
+    const fetchData = async () => {
       try {
         const token = await getToken();
 
@@ -32,7 +30,10 @@ export default function Home() {
           return;
         }
 
-        const response = await fetch(
+        // =========================
+        // Fetch Profile
+        // =========================
+        const profileResponse = await fetch(
           "http://10.48.112.110:5000/api/auth/profile",
           {
             method: "GET",
@@ -42,22 +43,57 @@ export default function Home() {
           }
         );
 
-        const data = await response.json();
+        const profileData = await profileResponse.json();
 
-        console.log("Profile response:", data);
+        console.log("Profile response:", profileData);
 
-        if (!response.ok) {
-          console.log("Profile fetch failed:", data.message);
+        if (!profileResponse.ok) {
+          console.log(
+            "Profile fetch failed:",
+            profileData.message
+          );
+        } else {
+          setUser(profileData.user);
+        }
+
+        // =========================
+        // Fetch Trips
+        // =========================
+        const tripsResponse = await fetch(
+          "http://10.48.112.110:5000/api/trips",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const tripsData = await tripsResponse.json();
+
+        console.log("Trips response:", tripsData);
+
+        if (!tripsResponse.ok) {
+          console.log(
+            "Trips fetch failed:",
+            tripsData.message
+          );
           return;
         }
 
-        setUser(data.user);
+        // MongoDB _id ko id me convert kar rahe hain
+        const formattedTrips = tripsData.trips.map((trip) => ({
+          ...trip,
+          id: trip._id,
+        }));
+
+        setTrips(formattedTrips);
       } catch (error) {
-        console.log("Profile error:", error);
+        console.log("Home fetch error:", error);
       }
     };
 
-    fetchProfile();
+    fetchData();
   }, []);
 
   // Show only recent 3 trips
