@@ -9,7 +9,7 @@ import {
 
 import { router } from "expo-router";
 
-import { useTrips } from "../../context/TripContext";
+import { useTrips } from "../context/tripcontext";
 import { removeToken } from "../../utils/authStorage";
 
 export default function Profile() {

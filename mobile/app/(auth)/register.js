@@ -44,7 +44,7 @@ export default function Register() {
 
   const [loading, setLoading] = useState(false);
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     Keyboard.dismiss();
 
     const nameValidation =
@@ -80,17 +80,44 @@ export default function Register() {
       return;
     }
 
-    setLoading(true);
+   try {
+  setLoading(true);
 
-    // Temporary API simulation
-    setTimeout(() => {
-      if (!isMounted.current) return;
-      setLoading(false);
+  const response = await fetch(
+    "http://10.48.112.110:5000/api/auth/register",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        password: password,
+      }),
+    }
+  );
 
-      console.log("Registration successful");
+  const data = await response.json();
 
-      router.replace("/login");
-    }, 1500);
+  console.log("Register response:", data);
+
+  if (!response.ok) {
+    console.log("Registration failed:", data.message);
+    return;
+  }
+
+  console.log("Registration successful");
+
+  router.replace("/login");
+
+} catch (error) {
+  console.log("Registration error:", error);
+} finally {
+  if (isMounted.current) {
+    setLoading(false);
+  }
+}
   };
 
   const handleNameChange = (text) => {

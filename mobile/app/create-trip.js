@@ -9,7 +9,6 @@ import {
   Keyboard,
   Alert,
 } from "react-native";
-import { useTrips } from "./context/tripcontext";
 
 import { useState, useEffect, useRef } from "react";
 import { router } from "expo-router";
@@ -19,8 +18,11 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import AppInput from "../components/AppInput";
 import AppButton from "../components/AppButton";
 
+import { getToken } from "../utils/authStorage";
+
 export default function CreateTrip() {
   const isMounted = useRef(true);
+
   useEffect(() => {
     return () => {
       isMounted.current = false;
@@ -30,7 +32,7 @@ export default function CreateTrip() {
   // -----------------------------
   // Trip form states
   // -----------------------------
-const { addTrip } = useTrips();
+
   const [tripName, setTripName] = useState("");
   const [startingPoint, setStartingPoint] = useState("");
   const [destination, setDestination] = useState("");
@@ -90,8 +92,7 @@ const { addTrip } = useTrips();
     if (selectedDate) {
       setStartDate(selectedDate);
 
-      // Agar pehle selected end date
-      // start date se pehle hai,
+      // Agar end date start date se pehle hai,
       // to end date reset kar denge.
 
       if (endDate && selectedDate > endDate) {
@@ -119,7 +120,7 @@ const { addTrip } = useTrips();
   // Create Trip
   // -----------------------------
 
-  const handleCreateTrip = () => {
+  const handleCreateTrip = async () => {
     Keyboard.dismiss();
 
     // Clear old errors
@@ -154,42 +155,74 @@ const { addTrip } = useTrips();
       hasError = true;
     }
 
-    // Agar koi error hai
-    // to function yahin stop ho jayega
-
+    // Agar validation error hai
     if (hasError) {
       return;
     }
 
-    // -----------------------------
-    // Create trip object
-    // -----------------------------
+    try {
+      setLoading(true);
 
-    const trip = {
-      id: Date.now().toString(),
+      // -----------------------------
+      // Get JWT token
+      // -----------------------------
 
-      name: tripName.trim(),
+      const token = await getToken();
 
-      startingPoint: startingPoint.trim(),
+      if (!token) {
+        Alert.alert(
+          "Login Required",
+          "Your login session was not found. Please login again."
+        );
+        return;
+      }
 
-      destination: destination.trim(),
+      // -----------------------------
+      // Send trip to backend
+      // -----------------------------
 
-      startDate: startDate.toISOString(),
+      const response = await fetch(
+        "http://10.48.112.110:5000/api/trips",
+        {
+          method: "POST",
 
-      endDate: endDate.toISOString(),
-    };
-addTrip(trip);
-    console.log("Created Trip:", trip);
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
 
-    // -----------------------------
-    // Loading
-    // -----------------------------
+          body: JSON.stringify({
+            name: tripName.trim(),
+            startingPoint: startingPoint.trim(),
+            destination: destination.trim(),
+            startDate: startDate.toISOString(),
+            endDate: endDate.toISOString(),
+          }),
+        }
+      );
 
-    setLoading(true);
+      const data = await response.json();
 
-    setTimeout(() => {
-      if (!isMounted.current) return;
-      setLoading(false);
+      console.log("Create Trip response:", data);
+
+      // -----------------------------
+      // Backend error
+      // -----------------------------
+
+      if (!response.ok) {
+        Alert.alert(
+          "Trip Creation Failed",
+          data.message || "Something went wrong."
+        );
+
+        return;
+      }
+
+      // -----------------------------
+      // Success
+      // -----------------------------
+
+      console.log("Trip created successfully:", data.trip);
 
       Alert.alert(
         "Trip Created 🎉",
@@ -203,8 +236,23 @@ addTrip(trip);
           },
         ]
       );
-    }, 1000);
+    } catch (error) {
+      console.log("Create Trip error:", error);
+
+      Alert.alert(
+        "Connection Error",
+        "Unable to connect to the server."
+      );
+    } finally {
+      if (isMounted.current) {
+        setLoading(false);
+      }
+    }
   };
+
+  // -----------------------------
+  // UI
+  // -----------------------------
 
   return (
     <KeyboardAvoidingView
@@ -220,13 +268,11 @@ addTrip(trip);
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-
         {/* -------------------------------- */}
         {/* Header */}
         {/* -------------------------------- */}
 
         <View style={styles.header}>
-
           <Text style={styles.title}>
             Create New Trip 🚗
           </Text>
@@ -234,7 +280,6 @@ addTrip(trip);
           <Text style={styles.subtitle}>
             Plan your next adventure
           </Text>
-
         </View>
 
         {/* -------------------------------- */}
@@ -242,7 +287,6 @@ addTrip(trip);
         {/* -------------------------------- */}
 
         <View style={styles.card}>
-
           {/* Trip Name */}
 
           <AppInput
@@ -377,10 +421,16 @@ addTrip(trip);
 
           {showEndPicker && (
             <DateTimePicker
-              value={endDate || startDate || new Date()}
+              value={
+                endDate ||
+                startDate ||
+                new Date()
+              }
               mode="date"
               display="default"
-              minimumDate={startDate || new Date()}
+              minimumDate={
+                startDate || new Date()
+              }
               onChange={handleEndDateChange}
             />
           )}
@@ -403,21 +453,17 @@ addTrip(trip);
             loading={loading}
             disabled={loading}
           />
-
         </View>
-
       </ScrollView>
     </KeyboardAvoidingView>
   );
 }
-
 
 // ========================================
 // STYLES
 // ========================================
 
 const styles = StyleSheet.create({
-
   // Main screen
 
   container: {
@@ -460,10 +506,12 @@ const styles = StyleSheet.create({
 
     // Shadow - iOS
     shadowColor: "#000",
+
     shadowOffset: {
       width: 0,
       height: 6,
     },
+
     shadowOpacity: 0.08,
     shadowRadius: 12,
 
@@ -535,5 +583,4 @@ const styles = StyleSheet.create({
     marginTop: -10,
     marginBottom: 8,
   },
-
 });

@@ -60,17 +60,35 @@ export default function Login() {
     try {
       setLoading(true);
 
-      /*
-        TEMPORARY TOKEN
+  const response = await fetch(
+  "http://10.48.112.110:5000/api/auth/login",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email,
+      password: password,
+    }),
+  }
+);
 
-        Abhi backend connect nahi kiya hai.
-        Backend connect hone ke baad ye token
-        backend response se milega.
-      */
-      const token = "test_jwt_token_123";
+const data = await response.json();
 
-      // Save JWT token in AsyncStorage
-      await saveToken(token);
+console.log("Backend response:", data);
+
+if (!response.ok) {
+  console.log("Login failed:", data.message);
+  return;
+}
+
+const token = data.token;
+
+await saveToken(token);
+
+console.log("Login successful");
+console.log("Real JWT Token saved");
 
       if (!isMounted.current) return;
 

@@ -6,6 +6,7 @@ import {
   Pressable,
 } from "react-native";
 
+import { useState, useEffect } from "react";
 import { router } from "expo-router";
 
 import Header from "../../components/Header";
@@ -13,11 +14,53 @@ import TripCard from "../../components/TripCard";
 import AppButton from "../../components/AppButton";
 
 import { useTrips } from "../context/tripcontext";
+import { getToken } from "../../utils/authStorage";
 
 export default function Home() {
   const { trips } = useTrips();
 
-  // You can limit the trips to only recent ones (e.g. 3)
+  const [user, setUser] = useState(null);
+
+  // Fetch currently logged-in user's profile
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const token = await getToken();
+
+        if (!token) {
+          console.log("No JWT token found");
+          return;
+        }
+
+        const response = await fetch(
+          "http://10.48.112.110:5000/api/auth/profile",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const data = await response.json();
+
+        console.log("Profile response:", data);
+
+        if (!response.ok) {
+          console.log("Profile fetch failed:", data.message);
+          return;
+        }
+
+        setUser(data.user);
+      } catch (error) {
+        console.log("Profile error:", error);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  // Show only recent 3 trips
   const recentTrips = trips.slice(0, 3);
 
   const handleTripPress = (trip) => {
@@ -35,12 +78,11 @@ export default function Home() {
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.listContent}
-
         ListHeaderComponent={
           <View>
             {/* Header */}
             <Header
-              name="Ankit"
+              name={user?.name || "User"}
               subtitle="Ready for your next adventure?"
             />
 
@@ -91,14 +133,12 @@ export default function Home() {
             </View>
           </View>
         }
-
         renderItem={({ item }) => (
           <TripCard
             trip={item}
             onPress={() => handleTripPress(item)}
           />
         )}
-
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyIcon}>
