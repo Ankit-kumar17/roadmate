@@ -23,7 +23,9 @@ router.post("/register",async (req,res) => {
 
         const user = await User.create({
             name,email,password:hashedPasssword,
+            
         });
+        console.log("user");
 
         res.status(201).json({
             message: "User registered successfully",
@@ -44,6 +46,7 @@ router.post("/register",async (req,res) => {
 router.post("/login", async(req,res) =>{
     try{
         const{email,password} = req.body;
+        console.log("login body:", req.body);
 
         const user = await User.findOne({email});
 console.log("user:",user);
