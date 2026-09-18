@@ -11,6 +11,7 @@ console.log("JWT SECRET EXISTS:", !!process.env.JWT_SECRET);
 const express = require("express");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
+const tripRoutes = require("./routes/tripRoutes");
 
 
 const app = express();
@@ -28,6 +29,7 @@ mongoose
 
 
 app.use("/api/auth", authRoutes);
+app.use("/api/trips", tripRoutes);
 app.get("/", (req, res) => {
   res.send("backend is running");
 });
